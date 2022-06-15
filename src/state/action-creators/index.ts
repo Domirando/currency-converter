@@ -9,7 +9,7 @@ export const fetchData = (amount?: number, req_from?: string, to?: string) => {
             dispatch({type: actionTypes.FETCH_WEATHER_REQUEST})
             let response: any;
             if (amount && req_from && to) {
-                response = await axios.get(`https://api.fastforex.io/fetch-one?from=${req_from}&to=${to}&api_key=${process.env.API_KEY}`)
+                response = await axios.get(`https://api.fastforex.io/fetch-one?from=${req_from}&to=${to}&api_key=${process.env.React_App_API_KEY}`)
                 let item = Object.entries(response).map(item => item)
                 // @ts-ignore
                 let item2 = Object.entries(item[0][1].result).map(item => item)
