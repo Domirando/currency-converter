@@ -22,11 +22,9 @@ export const fetchData = (amount?: number, req_from?: string, to?: string) => {
                     }})
             }else {
                 response = await axios.get(`https://api.fastforex.io/fetch-all?api_key=${process.env.React_App_API_KEY}`)
-                console.log("response:", response.data.results)
                 let items = Object.entries(response.data.results).map(item => item)
                 let to = items.map(item => item[0])
                 let amount = items.map(item => item[1])
-                console.log("amount", amount)
                 dispatch({type: actionTypes.FETCH_WEATHER_SUCCESS, payload: {
                         from: response.data.base,
                         to: to,

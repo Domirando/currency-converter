@@ -13,21 +13,11 @@ const Currencies = () => {
     })
     let [currentList, setCurrentList] = useState(1)
     let nextTimes = Array.isArray(response_amount) ? Math.ceil(response_amount.length / 20) : 0
-    console.log("times", nextTimes)
     useEffect(() => {
         dispatch({type: actionTypes.INITIALBACK});
         // @ts-ignore
         dispatch(fetchData());
     }, [])
-    const Checker = (amount: any) => {
-        amount.map((item: number, key: number) => {
-            if (Array.isArray(amount) && currentList === 1 && key <= 20) {
-                return <DataItem from={from ? from : "USD"} to={to != null ? to[key] : ""} amount={item}/>
-            } else if (currentList > 1 && currentList * 20 - 20 < key && key <= currentList * 20) {
-                return <DataItem from={"USD"} to={to != null ? to[key] : ""} amount={item}/>
-            }
-        })
-    }
     return (
         <div className={"mx-auto mt-[-160px] w-2/4"}>
             {!loading ? (
@@ -64,10 +54,10 @@ const Currencies = () => {
                         {
                             (currentList !== 1 && Array.isArray(response_amount)) ? response_amount.map((item, key) => (
                                 (currentList * 20 - 20 < key && key <= currentList * 20)) ? (
-                                <DataItem from={"USD"} to={to != null ? to[key] : ""} amount={item}/>
+                                <DataItem from={"USD"} key={`${key}_d`} to={to != null ? to[key] : ""} amount={item}/>
                             ) : null) : (    // @ts-ignore
                                 Array.isArray(response_amount) ? response_amount.map((item, key) => (key <= 20) ? (
-                                    <DataItem from={from ? from : "USD"} to={to != null ? to[key] : ""} amount={item}/>
+                                    <DataItem key={`${key}_i`} from={from ? from : "USD"} to={to != null ? to[key] : ""} amount={item}/>
                                 ) : null) : null)}
                         </tbody>
                     </table>
